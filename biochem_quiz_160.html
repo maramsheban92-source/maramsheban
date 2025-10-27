@@ -265,12 +265,12 @@
 <body>
     <div class="container">
         <h1>🧬 Biochemistry Quiz</h1>
-        <div class="subtitle">Test Your Knowledge with 160 Questions</div>
+        <div class="subtitle" id="quiz-subtitle">Test Your Knowledge with 160 Questions</div>
         
         <div id="quiz-info" class="quiz-info">
             <div class="info-item">
                 <div class="info-label">Question</div>
-                <div class="info-value"><span id="current-question">1</span> / 160</div>
+                <div class="info-value"><span id="current-question">1</span> / <span id="total-questions">160</span></div>
             </div>
             <div class="info-item">
                 <div class="info-label">Score</div>
@@ -1317,6 +1317,8 @@
 
         // Initialize quiz on page load
         window.onload = function() {
+            document.getElementById('total-questions').textContent = quizData.length;
+            document.getElementById('quiz-subtitle').textContent = `Test Your Knowledge with ${quizData.length} Questions`;
             loadQuestion();
         };
     </script>
