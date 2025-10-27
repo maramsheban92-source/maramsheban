@@ -57,7 +57,7 @@ class Quiz:
             
             answer = self.get_answer()
             
-            if answer.upper() == q["answer"]:
+            if answer == q["answer"]:
                 print("✓ Correct!")
                 self.score += 1
             else:
