@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biochemistry Quiz - 160 Questions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .quiz-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .info-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #333;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .results h2 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 30px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .performance {
+            font-size: 1.3em;
+            color: #666;
+            margin: 20px 0;
+        }
+        
+        .feedback {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 Biochemistry Quiz</h1>
+        <div class="subtitle" id="quiz-subtitle">Test Your Knowledge with 160 Questions</div>
+        
+        <div id="quiz-info" class="quiz-info">
+            <div class="info-item">
+                <div class="info-label">Question</div>
+                <div class="info-value"><span id="current-question">1</span> / <span id="total-questions">160</span></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Score</div>
+                <div class="info-value" id="score">0</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Answered</div>
+                <div class="info-value" id="answered">0</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        
+        <div id="quiz-container"></div>
+        
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()" disabled>← Previous</button>
+            <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Next →</button>
+            <button class="btn btn-success hidden" id="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+        
+        <div id="results-container" class="results hidden"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            // Amino Acids and Proteins (Questions 1-30)
+            {
+                question: "What is the basic structural unit of proteins?",
+                options: ["Nucleotides", "Amino acids", "Monosaccharides", "Fatty acids"],
+                correct: 1
+            },
+            {
+                question: "How many standard amino acids are found in proteins?",
+                options: ["10", "15", "20", "25"],
+                correct: 2
+            },
+            {
+                question: "Which amino acid contains sulfur?",
+                options: ["Glycine", "Alanine", "Cysteine", "Leucine"],
+                correct: 2
+            },
+            {
+                question: "What type of bond links amino acids together?",
+                options: ["Hydrogen bond", "Ionic bond", "Peptide bond", "Disulfide bond"],
+                correct: 2
+            },
+            {
+                question: "Which level of protein structure involves alpha-helices and beta-sheets?",
+                options: ["Primary", "Secondary", "Tertiary", "Quaternary"],
+                correct: 1
+            },
+            {
+                question: "What is the isoelectric point (pI) of an amino acid?",
+                options: ["pH at which it is most acidic", "pH at which it has no net charge", "pH at which it is most basic", "pH at which it denatures"],
+                correct: 1
+            },
+            {
+                question: "Which amino acid is aromatic?",
+                options: ["Valine", "Phenylalanine", "Glutamine", "Proline"],
+                correct: 1
+            },
+            {
+                question: "What is denaturation of proteins?",
+                options: ["Loss of primary structure", "Loss of higher-order structure", "Formation of new peptide bonds", "Polymerization of amino acids"],
+                correct: 1
+            },
+            {
+                question: "Which amino acid is the simplest?",
+                options: ["Glycine", "Alanine", "Serine", "Valine"],
+                correct: 0
+            },
+            {
+                question: "What is a zwitterion?",
+                options: ["A neutral molecule with positive and negative charges", "An acidic amino acid", "A basic amino acid", "A protein with no charge"],
+                correct: 0
+            },
+            {
+                question: "Which test is used to detect proteins?",
+                options: ["Benedict's test", "Biuret test", "Iodine test", "Fehling's test"],
+                correct: 1
+            },
+            {
+                question: "What type of bond maintains tertiary structure?",
+                options: ["Only peptide bonds", "Only hydrogen bonds", "Multiple types including disulfide bonds", "Only ionic bonds"],
+                correct: 2
+            },
+            {
+                question: "Which amino acid is essential and aromatic?",
+                options: ["Tyrosine", "Tryptophan", "Histidine", "Methionine"],
+                correct: 1
+            },
+            {
+                question: "What is the role of chaperones?",
+                options: ["Break down proteins", "Help in protein folding", "Synthesize amino acids", "Transport lipids"],
+                correct: 1
+            },
+            {
+                question: "Which amino acid can form disulfide bridges?",
+                options: ["Methionine", "Cysteine", "Serine", "Threonine"],
+                correct: 1
+            },
+            {
+                question: "What is an essential amino acid?",
+                options: ["Cannot be synthesized by the body", "Most abundant in proteins", "Contains sulfur", "Is always charged"],
+                correct: 0
+            },
+            {
+                question: "Which structure describes the sequence of amino acids?",
+                options: ["Primary", "Secondary", "Tertiary", "Quaternary"],
+                correct: 0
+            },
+            {
+                question: "What is collagen?",
+                options: ["Storage protein", "Transport protein", "Structural protein", "Enzyme"],
+                correct: 2
+            },
+            {
+                question: "Which amino acid is cyclic?",
+                options: ["Proline", "Glycine", "Alanine", "Valine"],
+                correct: 0
+            },
+            {
+                question: "What is hemoglobin?",
+                options: ["Storage protein", "Structural protein", "Transport protein", "Contractile protein"],
+                correct: 2
+            },
+            {
+                question: "Which bond is strongest in protein structure?",
+                options: ["Hydrogen bond", "Ionic bond", "Peptide bond", "Van der Waals forces"],
+                correct: 2
+            },
+            {
+                question: "What is keratin?",
+                options: ["Enzyme", "Hormone", "Structural protein", "Antibody"],
+                correct: 2
+            },
+            {
+                question: "Which amino acid has a hydroxyl group?",
+                options: ["Leucine", "Serine", "Valine", "Alanine"],
+                correct: 1
+            },
+            {
+                question: "What determines protein function?",
+                options: ["Only primary structure", "Only quaternary structure", "Three-dimensional structure", "Molecular weight"],
+                correct: 2
+            },
+            {
+                question: "Which amino acid is positively charged at physiological pH?",
+                options: ["Aspartate", "Glutamate", "Lysine", "Cysteine"],
+                correct: 2
+            },
+            {
+                question: "What is myoglobin's function?",
+                options: ["Transport oxygen in blood", "Store oxygen in muscle", "Break down glucose", "Synthesize proteins"],
+                correct: 1
+            },
+            {
+                question: "Which amino acid is negatively charged?",
+                options: ["Lysine", "Arginine", "Aspartate", "Histidine"],
+                correct: 2
+            },
+            {
+                question: "What is an oligopeptide?",
+                options: ["2-10 amino acids", "11-50 amino acids", "More than 50 amino acids", "Single amino acid"],
+                correct: 0
+            },
+            {
+                question: "Which protein is involved in blood clotting?",
+                options: ["Albumin", "Hemoglobin", "Fibrinogen", "Immunoglobulin"],
+                correct: 2
+            },
+            {
+                question: "What is the N-terminus of a protein?",
+                options: ["End with free carboxyl group", "End with free amino group", "Middle of the chain", "Site of folding"],
+                correct: 1
+            },
+
+            // Enzymes (Questions 31-50)
+            {
+                question: "What are enzymes?",
+                options: ["Lipid catalysts", "Protein catalysts", "Carbohydrate catalysts", "Nucleic acid catalysts"],
+                correct: 1
+            },
+            {
+                question: "What is the active site of an enzyme?",
+                options: ["Where substrate binds", "Where enzyme is synthesized", "Where enzyme is degraded", "Where cofactors bind only"],
+                correct: 0
+            },
+            {
+                question: "What is a cofactor?",
+                options: ["Non-protein helper molecule", "Another enzyme", "Substrate", "Product"],
+                correct: 0
+            },
+            {
+                question: "What is Km in enzyme kinetics?",
+                options: ["Maximum velocity", "Substrate concentration at half Vmax", "Enzyme concentration", "Product concentration"],
+                correct: 1
+            },
+            {
+                question: "What is a competitive inhibitor?",
+                options: ["Binds to active site", "Binds to allosteric site", "Permanently inactivates enzyme", "Increases enzyme activity"],
+                correct: 0
+            },
+            {
+                question: "What is Vmax?",
+                options: ["Initial reaction velocity", "Maximum reaction velocity", "Minimum reaction velocity", "Average velocity"],
+                correct: 1
+            },
+            {
+                question: "What is an allosteric enzyme?",
+                options: ["Has only one active site", "Regulated at sites other than active site", "Works only at high temperature", "Requires no cofactors"],
+                correct: 1
+            },
+            {
+                question: "What is feedback inhibition?",
+                options: ["Product inhibits earlier step", "Substrate activates enzyme", "Temperature increases activity", "pH changes activity"],
+                correct: 0
+            },
+            {
+                question: "What is an apoenzyme?",
+                options: ["Enzyme with cofactor", "Enzyme without cofactor", "Inactive enzyme permanently", "Non-protein enzyme"],
+                correct: 1
+            },
+            {
+                question: "What is a holoenzyme?",
+                options: ["Enzyme without cofactor", "Complete active enzyme with cofactor", "Denatured enzyme", "Enzyme inhibitor"],
+                correct: 1
+            },
+            {
+                question: "Which factors affect enzyme activity?",
+                options: ["Only temperature", "Only pH", "Temperature, pH, and substrate concentration", "Only substrate concentration"],
+                correct: 2
+            },
+            {
+                question: "What is the induced fit model?",
+                options: ["Enzyme shape doesn't change", "Enzyme changes shape upon substrate binding", "Substrate changes to fit enzyme", "Products change enzyme"],
+                correct: 1
+            },
+            {
+                question: "What is a coenzyme?",
+                options: ["Protein cofactor", "Organic cofactor", "Inorganic cofactor", "Enzyme inhibitor"],
+                correct: 1
+            },
+            {
+                question: "What is enzyme specificity?",
+                options: ["Can catalyze any reaction", "Catalyzes specific reactions", "Works at any temperature", "Works at any pH"],
+                correct: 1
+            },
+            {
+                question: "What is a prosthetic group?",
+                options: ["Loosely bound cofactor", "Tightly bound cofactor", "Temporary substrate", "Enzyme inhibitor"],
+                correct: 1
+            },
+            {
+                question: "What is non-competitive inhibition?",
+                options: ["Binds to active site", "Binds to allosteric site and changes enzyme shape", "Increases Km", "Has no effect on Vmax"],
+                correct: 1
+            },
+            {
+                question: "What is enzyme saturation?",
+                options: ["All active sites occupied", "No active sites occupied", "Half active sites occupied", "Enzyme is denatured"],
+                correct: 0
+            },
+            {
+                question: "What is the lock and key model?",
+                options: ["Enzyme changes shape", "Substrate and enzyme fit perfectly without change", "Product changes enzyme", "Multiple substrates required"],
+                correct: 1
+            },
+            {
+                question: "What is enzyme turnover number?",
+                options: ["Number of enzymes", "Number of reactions per enzyme per time", "Number of substrates", "Number of products"],
+                correct: 1
+            },
+            {
+                question: "What is irreversible inhibition?",
+                options: ["Temporary binding", "Permanent inactivation of enzyme", "Increases activity", "Has no effect"],
+                correct: 1
+            },
+
+            // Carbohydrates (Questions 51-70)
+            {
+                question: "What is the general formula for carbohydrates?",
+                options: ["(CH2O)n", "CHO", "C6H12O6", "CH3COOH"],
+                correct: 0
+            },
+            {
+                question: "What is a monosaccharide?",
+                options: ["Simple sugar", "Two sugars", "Many sugars", "Sugar alcohol"],
+                correct: 0
+            },
+            {
+                question: "Which is a hexose?",
+                options: ["Ribose", "Glucose", "Glyceraldehyde", "Erythrose"],
+                correct: 1
+            },
+            {
+                question: "What is glycogen?",
+                options: ["Storage form in plants", "Storage form in animals", "Structural component", "Transport form"],
+                correct: 1
+            },
+            {
+                question: "What bond links monosaccharides?",
+                options: ["Peptide bond", "Glycosidic bond", "Ester bond", "Phosphodiester bond"],
+                correct: 1
+            },
+            {
+                question: "What is cellulose?",
+                options: ["Animal storage", "Plant structural component", "Energy molecule", "Enzyme"],
+                correct: 1
+            },
+            {
+                question: "Which test detects reducing sugars?",
+                options: ["Biuret test", "Benedict's test", "Bradford test", "Ninhydrin test"],
+                correct: 1
+            },
+            {
+                question: "What is lactose composed of?",
+                options: ["Glucose + Glucose", "Glucose + Fructose", "Glucose + Galactose", "Fructose + Galactose"],
+                correct: 2
+            },
+            {
+                question: "What is sucrose composed of?",
+                options: ["Glucose + Glucose", "Glucose + Fructose", "Glucose + Galactose", "Fructose + Galactose"],
+                correct: 1
+            },
+            {
+                question: "What is maltose composed of?",
+                options: ["Glucose + Glucose", "Glucose + Fructose", "Glucose + Galactose", "Fructose + Galactose"],
+                correct: 0
+            },
+            {
+                question: "What is starch?",
+                options: ["Animal storage", "Plant storage polymer", "Structural polymer", "Simple sugar"],
+                correct: 1
+            },
+            {
+                question: "Which sugar is ketose?",
+                options: ["Glucose", "Fructose", "Galactose", "Ribose"],
+                correct: 1
+            },
+            {
+                question: "What is chitin?",
+                options: ["Plant cell wall", "Exoskeleton of arthropods", "Storage in liver", "Blood sugar"],
+                correct: 1
+            },
+            {
+                question: "What is the anomeric carbon?",
+                options: ["Carbon in amino group", "Carbon that becomes chiral upon ring formation", "Terminal carbon", "Carbon with hydroxyl"],
+                correct: 1
+            },
+            {
+                question: "What are epimers?",
+                options: ["Same molecular formula, different structure", "Differ at one chiral center", "Mirror images", "Constitutional isomers"],
+                correct: 1
+            },
+            {
+                question: "What is inulin?",
+                options: ["Storage in animals", "Storage in plants (fructose polymer)", "Structural polymer", "Hormone"],
+                correct: 1
+            },
+            {
+                question: "What is a reducing sugar?",
+                options: ["Cannot reduce Benedict's reagent", "Can reduce Benedict's reagent", "Always a disaccharide", "Never a monosaccharide"],
+                correct: 1
+            },
+            {
+                question: "What is glycolysis?",
+                options: ["Synthesis of glucose", "Breakdown of glucose", "Storage of glucose", "Transport of glucose"],
+                correct: 1
+            },
+            {
+                question: "Which is a pentose?",
+                options: ["Glucose", "Ribose", "Fructose", "Galactose"],
+                correct: 1
+            },
+            {
+                question: "What is amylose?",
+                options: ["Branched starch", "Unbranched starch", "Animal storage", "Structural polymer"],
+                correct: 1
+            },
+
+            // Lipids (Questions 71-90)
+            {
+                question: "What is the basic unit of lipids?",
+                options: ["Amino acids", "Nucleotides", "Fatty acids and glycerol", "Monosaccharides"],
+                correct: 2
+            },
+            {
+                question: "What is a saturated fatty acid?",
+                options: ["Has double bonds", "Has no double bonds", "Is a steroid", "Is water-soluble"],
+                correct: 1
+            },
+            {
+                question: "What is cholesterol?",
+                options: ["Triglyceride", "Phospholipid", "Steroid", "Wax"],
+                correct: 2
+            },
+            {
+                question: "What is a triglyceride?",
+                options: ["One fatty acid + glycerol", "Two fatty acids + glycerol", "Three fatty acids + glycerol", "Four fatty acids + glycerol"],
+                correct: 2
+            },
+            {
+                question: "What is the main component of cell membranes?",
+                options: ["Triglycerides", "Phospholipids", "Steroids", "Waxes"],
+                correct: 1
+            },
+            {
+                question: "What is saponification?",
+                options: ["Synthesis of lipids", "Hydrolysis of lipids to make soap", "Oxidation of lipids", "Reduction of lipids"],
+                correct: 1
+            },
+            {
+                question: "Which vitamin is fat-soluble?",
+                options: ["Vitamin C", "Vitamin B", "Vitamin D", "Vitamin B12"],
+                correct: 2
+            },
+            {
+                question: "What is an unsaturated fatty acid?",
+                options: ["Has no double bonds", "Has one or more double bonds", "Is always solid", "Contains nitrogen"],
+                correct: 1
+            },
+            {
+                question: "What is the function of phospholipids?",
+                options: ["Energy storage", "Membrane structure", "Hormones", "Vitamins"],
+                correct: 1
+            },
+            {
+                question: "What is beta-oxidation?",
+                options: ["Synthesis of fatty acids", "Breakdown of fatty acids", "Formation of steroids", "Phospholipid synthesis"],
+                correct: 1
+            },
+            {
+                question: "What is an essential fatty acid?",
+                options: ["Can be synthesized by body", "Cannot be synthesized by body", "Is always saturated", "Has no double bonds"],
+                correct: 1
+            },
+            {
+                question: "What are waxes?",
+                options: ["Esters of fatty acids with long-chain alcohols", "Phospholipids", "Steroids", "Glycerol esters"],
+                correct: 0
+            },
+            {
+                question: "What is the function of triglycerides?",
+                options: ["Membrane structure", "Energy storage", "Signaling", "Catalysis"],
+                correct: 1
+            },
+            {
+                question: "What is a sphingolipid?",
+                options: ["Contains glycerol", "Contains sphingosine", "Is a steroid", "Is a wax"],
+                correct: 1
+            },
+            {
+                question: "What is lipolysis?",
+                options: ["Synthesis of lipids", "Breakdown of lipids", "Transport of lipids", "Storage of lipids"],
+                correct: 1
+            },
+            {
+                question: "Which is a steroid hormone?",
+                options: ["Insulin", "Testosterone", "Glucagon", "Adrenaline"],
+                correct: 1
+            },
+            {
+                question: "What is the iodine number?",
+                options: ["Measures saturation", "Measures unsaturation", "Measures molecular weight", "Measures solubility"],
+                correct: 1
+            },
+            {
+                question: "What are lipoproteins?",
+                options: ["Pure proteins", "Complexes of lipids and proteins", "Pure lipids", "Carbohydrate-protein complexes"],
+                correct: 1
+            },
+            {
+                question: "What is HDL?",
+                options: ["Low-density lipoprotein", "High-density lipoprotein", "Very low-density lipoprotein", "Intermediate-density lipoprotein"],
+                correct: 1
+            },
+            {
+                question: "What is rancidity?",
+                options: ["Fresh lipids", "Oxidative deterioration of lipids", "Synthesis of lipids", "Emulsification"],
+                correct: 1
+            },
+
+            // Nucleic Acids (Questions 91-110)
+            {
+                question: "What is DNA?",
+                options: ["Deoxyribonucleic acid", "Dinitrogen acid", "Deoxyribose acid", "Diribonucleic acid"],
+                correct: 0
+            },
+            {
+                question: "What are the building blocks of nucleic acids?",
+                options: ["Amino acids", "Fatty acids", "Nucleotides", "Monosaccharides"],
+                correct: 2
+            },
+            {
+                question: "Which nitrogenous base is found in RNA but not DNA?",
+                options: ["Adenine", "Thymine", "Uracil", "Cytosine"],
+                correct: 2
+            },
+            {
+                question: "What is the sugar in DNA?",
+                options: ["Ribose", "Glucose", "Deoxyribose", "Fructose"],
+                correct: 2
+            },
+            {
+                question: "What is the sugar in RNA?",
+                options: ["Ribose", "Glucose", "Deoxyribose", "Fructose"],
+                correct: 0
+            },
+            {
+                question: "Which bases are purines?",
+                options: ["Adenine and Guanine", "Cytosine and Thymine", "Adenine and Thymine", "Guanine and Cytosine"],
+                correct: 0
+            },
+            {
+                question: "Which bases are pyrimidines?",
+                options: ["Adenine and Guanine", "Cytosine and Thymine", "Adenine and Thymine", "Guanine and Uracil"],
+                correct: 1
+            },
+            {
+                question: "What is Chargaff's rule?",
+                options: ["A=T and G=C in DNA", "A=G and T=C in DNA", "All bases equal", "Purines > Pyrimidines"],
+                correct: 0
+            },
+            {
+                question: "What is the structure of DNA?",
+                options: ["Single helix", "Double helix", "Triple helix", "Random coil"],
+                correct: 1
+            },
+            {
+                question: "What is replication?",
+                options: ["Synthesis of proteins", "Copying of DNA", "Synthesis of RNA", "Breakdown of DNA"],
+                correct: 1
+            },
+            {
+                question: "What is transcription?",
+                options: ["DNA to DNA", "DNA to RNA", "RNA to protein", "Protein to DNA"],
+                correct: 1
+            },
+            {
+                question: "What is translation?",
+                options: ["DNA to DNA", "DNA to RNA", "RNA to protein", "Protein to RNA"],
+                correct: 2
+            },
+            {
+                question: "What is a codon?",
+                options: ["Single nucleotide", "Two nucleotides", "Three nucleotides coding for amino acid", "Four nucleotides"],
+                correct: 2
+            },
+            {
+                question: "What is mRNA?",
+                options: ["Messenger RNA", "Mitochondrial RNA", "Maternal RNA", "Micro RNA"],
+                correct: 0
+            },
+            {
+                question: "What is tRNA?",
+                options: ["Transfer RNA", "Translational RNA", "Transcription RNA", "Template RNA"],
+                correct: 0
+            },
+            {
+                question: "What is rRNA?",
+                options: ["Ribosomal RNA", "Replication RNA", "Recombinant RNA", "Regulatory RNA"],
+                correct: 0
+            },
+            {
+                question: "What enzyme synthesizes RNA?",
+                options: ["DNA polymerase", "RNA polymerase", "Ligase", "Helicase"],
+                correct: 1
+            },
+            {
+                question: "What enzyme synthesizes DNA?",
+                options: ["DNA polymerase", "RNA polymerase", "Ligase", "Primase"],
+                correct: 0
+            },
+            {
+                question: "What is an anticodon?",
+                options: ["On mRNA", "On tRNA complementary to codon", "On rRNA", "On DNA"],
+                correct: 1
+            },
+            {
+                question: "What is a mutation?",
+                options: ["Normal DNA replication", "Change in DNA sequence", "RNA synthesis", "Protein synthesis"],
+                correct: 1
+            },
+
+            // Metabolism (Questions 111-130)
+            {
+                question: "What is metabolism?",
+                options: ["Only breakdown reactions", "Only synthesis reactions", "All chemical reactions in organisms", "Only energy production"],
+                correct: 2
+            },
+            {
+                question: "What is catabolism?",
+                options: ["Synthesis reactions", "Breakdown reactions", "Energy storage", "No energy change"],
+                correct: 1
+            },
+            {
+                question: "What is anabolism?",
+                options: ["Synthesis reactions", "Breakdown reactions", "Energy release", "Degradation"],
+                correct: 0
+            },
+            {
+                question: "What is ATP?",
+                options: ["Amino acid", "Energy currency", "Enzyme", "Structural protein"],
+                correct: 1
+            },
+            {
+                question: "What is glycolysis?",
+                options: ["Breakdown of proteins", "Breakdown of glucose to pyruvate", "Synthesis of glucose", "Breakdown of fatty acids"],
+                correct: 1
+            },
+            {
+                question: "Where does glycolysis occur?",
+                options: ["Mitochondria", "Cytoplasm", "Nucleus", "Endoplasmic reticulum"],
+                correct: 1
+            },
+            {
+                question: "What is the Krebs cycle?",
+                options: ["Occurs in cytoplasm", "Citric acid cycle in mitochondria", "Fatty acid synthesis", "Glycogen breakdown"],
+                correct: 1
+            },
+            {
+                question: "Where does the Krebs cycle occur?",
+                options: ["Cytoplasm", "Mitochondrial matrix", "Nucleus", "Ribosome"],
+                correct: 1
+            },
+            {
+                question: "What is oxidative phosphorylation?",
+                options: ["ATP synthesis using electron transport chain", "Glycolysis", "Krebs cycle", "Fatty acid oxidation"],
+                correct: 0
+            },
+            {
+                question: "What is the main product of glycolysis?",
+                options: ["Glucose", "Pyruvate", "Lactate", "Acetyl-CoA"],
+                correct: 1
+            },
+            {
+                question: "What is gluconeogenesis?",
+                options: ["Breakdown of glucose", "Synthesis of glucose from non-carbohydrates", "Storage of glucose", "Transport of glucose"],
+                correct: 1
+            },
+            {
+                question: "What is the electron transport chain?",
+                options: ["In cytoplasm", "In inner mitochondrial membrane", "In nucleus", "In ER"],
+                correct: 1
+            },
+            {
+                question: "What is the final electron acceptor in aerobic respiration?",
+                options: ["CO2", "H2O", "O2", "NAD+"],
+                correct: 2
+            },
+            {
+                question: "What is fermentation?",
+                options: ["Aerobic process", "Anaerobic process", "Requires oxygen always", "Produces most ATP"],
+                correct: 1
+            },
+            {
+                question: "What is the net ATP from glycolysis?",
+                options: ["2 ATP", "4 ATP", "36 ATP", "38 ATP"],
+                correct: 0
+            },
+            {
+                question: "What is NAD+?",
+                options: ["Energy molecule", "Electron carrier", "Amino acid", "Lipid"],
+                correct: 1
+            },
+            {
+                question: "What is FAD?",
+                options: ["Energy molecule", "Electron carrier", "Amino acid", "Carbohydrate"],
+                correct: 1
+            },
+            {
+                question: "What is the link between glycolysis and Krebs cycle?",
+                options: ["Glucose", "Pyruvate to Acetyl-CoA", "Lactate", "Citrate"],
+                correct: 1
+            },
+            {
+                question: "What is substrate-level phosphorylation?",
+                options: ["ATP synthesis by direct transfer", "ATP synthesis by electron transport", "ATP breakdown", "ADP synthesis"],
+                correct: 0
+            },
+            {
+                question: "What is the Cori cycle?",
+                options: ["Between liver and muscle for lactate", "Fatty acid synthesis", "Amino acid metabolism", "Nucleotide synthesis"],
+                correct: 0
+            },
+
+            // Vitamins and Coenzymes (Questions 131-145)
+            {
+                question: "What is a vitamin?",
+                options: ["Organic compound essential in small amounts", "Major nutrient", "Inorganic compound", "Type of protein"],
+                correct: 0
+            },
+            {
+                question: "Which vitamin is for vision?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                correct: 0
+            },
+            {
+                question: "Which vitamin prevents scurvy?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                correct: 1
+            },
+            {
+                question: "Which vitamin is for blood clotting?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                correct: 3
+            },
+            {
+                question: "Which vitamin is made from sunlight?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                correct: 2
+            },
+            {
+                question: "What is thiamine (Vitamin B1)?",
+                options: ["Water-soluble vitamin", "Fat-soluble vitamin", "Mineral", "Amino acid"],
+                correct: 0
+            },
+            {
+                question: "What disease is caused by niacin deficiency?",
+                options: ["Scurvy", "Pellagra", "Beriberi", "Rickets"],
+                correct: 1
+            },
+            {
+                question: "What disease is caused by thiamine deficiency?",
+                options: ["Scurvy", "Pellagra", "Beriberi", "Rickets"],
+                correct: 2
+            },
+            {
+                question: "What disease is caused by vitamin D deficiency?",
+                options: ["Scurvy", "Pellagra", "Beriberi", "Rickets"],
+                correct: 3
+            },
+            {
+                question: "What is cobalamin?",
+                options: ["Vitamin B12", "Vitamin C", "Vitamin K", "Vitamin E"],
+                correct: 0
+            },
+            {
+                question: "What is ascorbic acid?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin B1"],
+                correct: 1
+            },
+            {
+                question: "What is retinol?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin E"],
+                correct: 0
+            },
+            {
+                question: "What is tocopherol?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin E"],
+                correct: 3
+            },
+            {
+                question: "Which vitamin is an antioxidant?",
+                options: ["Vitamin K", "Vitamin D", "Vitamin E", "Vitamin B1"],
+                correct: 2
+            },
+            {
+                question: "What is biotin?",
+                options: ["Vitamin B7", "Vitamin C", "Vitamin A", "Mineral"],
+                correct: 0
+            },
+
+            // Hormones (Questions 146-160)
+            {
+                question: "What is insulin?",
+                options: ["Increases blood glucose", "Decreases blood glucose", "No effect on glucose", "Breaks down proteins"],
+                correct: 1
+            },
+            {
+                question: "What is glucagon?",
+                options: ["Increases blood glucose", "Decreases blood glucose", "No effect on glucose", "Stores glucose"],
+                correct: 0
+            },
+            {
+                question: "Where is insulin produced?",
+                options: ["Liver", "Pancreas", "Kidney", "Brain"],
+                correct: 1
+            },
+            {
+                question: "What is adrenaline?",
+                options: ["Fight or flight hormone", "Growth hormone", "Digestive hormone", "Reproductive hormone"],
+                correct: 0
+            },
+            {
+                question: "What is thyroxine?",
+                options: ["Pancreatic hormone", "Thyroid hormone", "Pituitary hormone", "Adrenal hormone"],
+                correct: 1
+            },
+            {
+                question: "What is cortisol?",
+                options: ["Stress hormone from adrenal glands", "Growth hormone", "Insulin", "Digestive enzyme"],
+                correct: 0
+            },
+            {
+                question: "What is growth hormone?",
+                options: ["From pancreas", "From pituitary gland", "From thyroid", "From adrenals"],
+                correct: 1
+            },
+            {
+                question: "What is estrogen?",
+                options: ["Male hormone", "Female hormone", "Stress hormone", "Digestive hormone"],
+                correct: 1
+            },
+            {
+                question: "What is testosterone?",
+                options: ["Male hormone", "Female hormone", "Stress hormone", "Digestive hormone"],
+                correct: 0
+            },
+            {
+                question: "What is oxytocin?",
+                options: ["Muscle building", "Childbirth and bonding hormone", "Digestive hormone", "Stress hormone"],
+                correct: 1
+            },
+            {
+                question: "What regulates calcium levels?",
+                options: ["Insulin", "Glucagon", "Parathyroid hormone", "Adrenaline"],
+                correct: 2
+            },
+            {
+                question: "What is diabetes mellitus?",
+                options: ["Excess insulin", "Insulin deficiency or resistance", "Excess glucagon", "Normal glucose regulation"],
+                correct: 1
+            },
+            {
+                question: "What type of molecule is insulin?",
+                options: ["Steroid", "Peptide hormone", "Lipid", "Carbohydrate"],
+                correct: 1
+            },
+            {
+                question: "What type of molecule is testosterone?",
+                options: ["Steroid hormone", "Peptide hormone", "Protein", "Carbohydrate"],
+                correct: 0
+            },
+            {
+                question: "What is the pancreas?",
+                options: ["Only exocrine gland", "Only endocrine gland", "Both endocrine and exocrine gland", "Neither"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = quizData[currentQuestion];
+            const container = document.getElementById('quiz-container');
+            
+            container.innerHTML = `
+                <div class="question-container">
+                    <div class="question-number">Question ${currentQuestion + 1} of ${quizData.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <label class="option ${userAnswers[currentQuestion] === index ? 'selected' : ''}">
+                                <input type="radio" name="answer" value="${index}" 
+                                    ${userAnswers[currentQuestion] === index ? 'checked' : ''}
+                                    onchange="selectAnswer(${index})">
+                                <span>${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateNavigation();
+            updateProgress();
+        }
+
+        function selectAnswer(answerIndex) {
+            userAnswers[currentQuestion] = answerIndex;
+            
+            // Update visual selection
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === answerIndex) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            updateProgress();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === quizData.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateProgress() {
+            const answered = userAnswers.filter(answer => answer !== null).length;
+            const progress = (currentQuestion / quizData.length) * 100;
+            
+            document.getElementById('current-question').textContent = currentQuestion + 1;
+            document.getElementById('answered').textContent = answered;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            if (userAnswers.includes(null)) {
+                const unanswered = userAnswers.filter(a => a === null).length;
+                if (!confirm(`You have ${unanswered} unanswered questions. Do you want to submit anyway?`)) {
+                    return;
+                }
+            }
+
+            score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === quizData[index].correct) {
+                    score++;
+                }
+            });
+
+            showResults();
+        }
+
+        function showResults() {
+            const percentage = (score / quizData.length * 100).toFixed(1);
+            let feedback = '';
+            
+            if (percentage >= 90) {
+                feedback = '🏆 Outstanding! You have excellent knowledge of biochemistry!';
+            } else if (percentage >= 80) {
+                feedback = '🌟 Great job! You have a strong understanding of biochemistry!';
+            } else if (percentage >= 70) {
+                feedback = '👍 Good work! You have a solid grasp of the concepts!';
+            } else if (percentage >= 60) {
+                feedback = '📚 Not bad! Keep studying to improve your knowledge!';
+            } else {
+                feedback = '💪 Keep learning! Review the material and try again!';
+            }
+
+            const resultsHTML = `
+                <h2>Quiz Complete!</h2>
+                <div class="score">${score} / ${quizData.length}</div>
+                <div class="performance">${percentage}%</div>
+                <div class="feedback">${feedback}</div>
+                <button class="btn btn-primary" onclick="reviewAnswers()">Review Answers</button>
+                <button class="btn btn-secondary" onclick="restartQuiz()">Restart Quiz</button>
+            `;
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-info').classList.add('hidden');
+            document.querySelector('.progress-bar').classList.add('hidden');
+            document.querySelector('.navigation').classList.add('hidden');
+            
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = resultsHTML;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function reviewAnswers() {
+            const reviewHTML = quizData.map((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                
+                return `
+                    <div class="question-container">
+                        <div class="question-number">
+                            Question ${index + 1} 
+                            ${isCorrect ? '✅ Correct' : '❌ Incorrect'}
+                        </div>
+                        <div class="question-text">${question.question}</div>
+                        <div class="options">
+                            ${question.options.map((option, optIndex) => {
+                                let className = 'option';
+                                if (optIndex === question.correct) {
+                                    className += ' correct';
+                                } else if (optIndex === userAnswer && !isCorrect) {
+                                    className += ' incorrect';
+                                }
+                                return `
+                                    <div class="${className}">
+                                        <span>${option}</span>
+                                        ${optIndex === question.correct ? ' ✓' : ''}
+                                        ${optIndex === userAnswer && !isCorrect ? ' (Your answer)' : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('results-container').classList.add('hidden');
+            document.getElementById('quiz-container').innerHTML = reviewHTML;
+            document.getElementById('quiz-container').classList.remove('hidden');
+            
+            const navigation = document.querySelector('.navigation');
+            navigation.innerHTML = '<button class="btn btn-secondary" onclick="restartQuiz()">Restart Quiz</button>';
+            navigation.classList.remove('hidden');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            score = 0;
+            
+            document.getElementById('quiz-info').classList.remove('hidden');
+            document.querySelector('.progress-bar').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            
+            const navigation = document.querySelector('.navigation');
+            navigation.innerHTML = `
+                <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()" disabled>← Previous</button>
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Next →</button>
+                <button class="btn btn-success hidden" id="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+            `;
+            
+            loadQuestion();
+        }
+
+        // Initialize quiz on page load
+        window.onload = function() {
+            document.getElementById('total-questions').textContent = quizData.length;
+            document.getElementById('quiz-subtitle').textContent = `Test Your Knowledge with ${quizData.length} Questions`;
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
